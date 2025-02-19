@@ -14,13 +14,13 @@ COMMAND="${BIN}/${APP_NAME}"
 installDotts(){
 mkdir -p "${BIN}"
 rm ${BIN}/dotts.sh ${COMMAND}  >/dev/null 2>&1
-cat << 'EOF' > $HOME/bin/dotts.sh
+cat << 'EOF' > $BIN/dotts.sh
 #!/bin/env bash
 /usr/bin/git --git-dir=$HOME/.dotts/ --work-tree=$HOME "$@"
 EOF
 
 chmod u+x ${BIN}/dotts.sh
-ln -s $HOME/bin/dotts.sh ${COMMAND}
+ln -s ${BIN}/dotts.sh ${COMMAND}
 
 git init --bare $HOME/.dotts
 ${COMMAND}  config init.defaultBranch main
