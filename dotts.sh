@@ -5,21 +5,21 @@
 
 action=$1;
 
-
+BIN="${HOME}/.local/bin"
 
 [[ ! -v APP_NAME ]] && APP_NAME=dotts
-COMMAND=$HOME/bin/${APP_NAME}
+COMMAND="${BIN}/${APP_NAME}"
 
 
 installDotts(){
-mkdir -p $HOME/bin
-rm $HOME/bin/dotts.sh ${COMMAND}  >/dev/null 2>&1
+mkdir -p "${BIN}"
+rm ${BIN}/dotts.sh ${COMMAND}  >/dev/null 2>&1
 cat << 'EOF' > $HOME/bin/dotts.sh
 #!/bin/env bash
 /usr/bin/git --git-dir=$HOME/.dotts/ --work-tree=$HOME "$@"
 EOF
 
-chmod u+x $HOME/bin/dotts.sh
+chmod u+x ${BIN}/dotts.sh
 ln -s $HOME/bin/dotts.sh ${COMMAND}
 
 git init --bare $HOME/.dotts
@@ -34,7 +34,7 @@ echo "installed dotts"
 }
 
 uninstallDotts(){
- rm $HOME/bin/dotts.sh  ${COMMAND} >/dev/null 2>&1
+ rm ${BIN}/dotts.sh  ${COMMAND} >/dev/null 2>&1
 if [[ $? == 0 ]]; then 
 echo 'uninstalled dotts' 
 else
